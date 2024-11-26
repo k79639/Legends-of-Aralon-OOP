@@ -13,6 +13,7 @@ class Game:
         self._challenge = Challenge(self)
 
     def run(self):
-        pass
+        #print a “welcome” message and provide a short overview of the game
+        self._script.displayWelcome()
 
         
