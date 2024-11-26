@@ -19,13 +19,24 @@ class Game:
         self._round3Monster = None
         self._round4Monster = None
         self._round5Monster = None
+        self._challengeNum = -1
+        self._gameEnd = False
+        self._roundWinnerFound = False
 
     def getHero(self):
         return self._heroCharacter
     
     def getAi(self):
         return self._aiCharacter
+    
+    def getChallengeNum(self):
+        return self._challengeNum
+    
+    def getChallenge1Monster(self):
+        return self._round1Monster
 
+    def getScript(self):
+        return self._script
     
 
     '''This method is the main game method which handel the logic and flow of the game'''
@@ -45,9 +56,12 @@ class Game:
         #Display the character assigned to their role
         self._script.displayRoles()
 
-        #Present the challenges implemented in the game, one at a time.
-        self._script.orianaAndChallenge1Intro()
+        #set challenge number to 1.
+        self._challengeNum = 1
 
+        #Loop battle until game ends
+        while not self._gameEnd:
+            self._challenge.battlefield()
 
 
     '''This method allow user to select one of the two characters implemented in the game'''

@@ -16,6 +16,18 @@ class Character:
     
     def getTitle(self):
         return self._title
+    
+    def getHealth(self):
+        return self._health
+    
+    def getRoll(self):
+        return self._characterRoll
+    
+    def getName(self):
+        return self._name
+    
+    def setHealth(self, health):
+        self._health = health
 
     '''This module rolls 2 six-sided dice for characters and store their outcome'''
     def rollDice(self):
@@ -29,4 +41,13 @@ class Character:
 
         else:
             self._characterDecision = False
+
+    '''This method return true or false based on if character is alive or not'''
+    def characterIsAlive(self):
+        if self._health > 0:
+            return True
+        elif self._health <= 0:
+            return False
+        else: 
+            return None
         

@@ -7,3 +7,12 @@ class Hero(Character):
         self._stamina = stamina
         self._strength = strength
         self._intelligence = intelligence
+
+    def getStrength(self):
+        return self._strength
+    
+    def getIntelligence(self):
+        return self._strength
+    
+    def getStrength(self):
+        return self._strength
