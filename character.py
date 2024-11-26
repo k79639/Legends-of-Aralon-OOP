@@ -11,6 +11,12 @@ class Character:
         self._characterRoll = -999
         self._characterDecision = None
 
+    def getColorName(self):
+        return self._coloredName
+    
+    def getTitle(self):
+        return self._title
+
     '''This module rolls 2 six-sided dice for characters and store their outcome'''
     def rollDice(self):
         self._characterRoll = random.randint(0, 12)

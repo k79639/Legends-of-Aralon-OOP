@@ -60,5 +60,20 @@ class Script:
         self.typingEffect("Type \033[92m'Valerius'\033[0m to embody strength and resilience,")
         self.typingEffect("or \033[94m'Eldara'\033[0m to wield the power of wisdom and magic.")
 
+    '''This method displays the roles assigned to the characters and assign them to variables hero and ai'''
+    def displayRoles(self):
+        hero = self._game.getHero()
+        ai = self._game.getAi()
+        self.typingEffect(f"\nYou have chosen {hero.getColorName()}, {hero.getTitle()}\033[0m")
+        self.typingEffect(f"The character assigned to AI is {ai.getColorName()}, {ai.getTitle()}\033[0m Prepare for battle!\n")
+
+    '''This method introduces the storyteller and first challenge'''
+    def orianaAndChallenge1Intro(self):
+        self.typingEffect(f"\n{self._oriana}Greetings, hero. I am Oriana, chronicler of Aralon.")
+        self.typingEffect("Prepare yourself for the first challenge: \033[35mKragnar the Stoneborn\033[0m.")
+        self.typingEffect("A towering beast of immense strength who can summon a shield to block critical attacks.")
+        self.typingEffect("Strike wisely, for strategy and strength will decide this battle.")
+
+
         
 

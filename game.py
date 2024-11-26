@@ -20,9 +20,15 @@ class Game:
         self._round4Monster = None
         self._round5Monster = None
 
+    def getHero(self):
+        return self._heroCharacter
+    
+    def getAi(self):
+        return self._aiCharacter
+
     
 
-    '''This method is the main game method handel the logic and flow of the game'''
+    '''This method is the main game method which handel the logic and flow of the game'''
     def run(self):
         #Print a “welcome” message and provide a short overview of the game
         self._script.displayWelcome()
@@ -35,6 +41,12 @@ class Game:
         
         #Acknowledge the user choice and create all the characters of the game
         self.createCharacters()
+
+        #Display the character assigned to their role
+        self._script.displayRoles()
+
+        #Present the challenges implemented in the game, one at a time.
+        self._script.orianaAndChallenge1Intro()
 
 
 
@@ -74,8 +86,6 @@ class Game:
         elif self._userChoice == "Eldara":
             self._heroCharacter = Hero("Eldara", 50, "the Mystic Sage", "\033[94mEldara", -1, -2, 3)
             self._aiCharacter = Hero("Valerius", 50, "the Guardian Knight", "\033[92mValerius", 2, 2, -3)
-            
-            
         
 
 
