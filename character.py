@@ -25,6 +25,9 @@ class Character:
     
     def getName(self):
         return self._name
+    
+    def getCharacterDecision(self):
+        return self._characterDecision
 
     '''This method rolls 2 six-sided dice for characters and store their outcome'''
     def rollDice(self):
@@ -39,11 +42,13 @@ class Character:
         else:
             self._characterDecision = False
 
-    '''This method return true or false based on if character is alive or not'''
+    '''This method return true or false based on if character is alive or not and sets the not alive character roll to 0'''
     def characterIsAlive(self):
         if self._health > 0:
             return True
         elif self._health <= 0:
+            #If a character is not alive set its roll to 0 so it does not affect the logic and calculation in the battle mainly for if hero or ai dies.
+            self._characterRoll = 0
             return False
         else: 
             return None
