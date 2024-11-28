@@ -5,7 +5,9 @@ import time
 class Script:
     def __init__(self, gameInstance):
         self._game = gameInstance
-        self._oriana = "\033[93mOriana:\033[0m " #creates storyteller
+        self._oriana = "\033[93mOriana:\033[0m " #Define storyteller
+        self._ai = None
+        self._hero = None
 
     '''This method creates a typing effect when printing a string of characters'''
     def typingEffect(self, text, delay=0.00):
@@ -56,23 +58,38 @@ class Script:
         self.typingEffect("- Special Abilities: Can break a monster's shield once and restore 40% of health twice.")
         self.typingEffect("\n\033[94mEldara, the Mystic Sage:\033[0m")
         self.typingEffect("- Stamina: -1\n- Strength: -2\n- Intelligence: +3\n- Health: 50")
-        self.typingEffect("- Special Ability: Can dodge a monster's attack once and respawn with 65% of health once.\n")
+        self.typingEffect("- Special Ability: Can dodge a monster's attack twice and respawn with 65% of health once.\n")
         self.typingEffect("Type \033[92m'Valerius'\033[0m to embody strength and resilience,")
         self.typingEffect("or \033[94m'Eldara'\033[0m to wield the power of wisdom and magic.")
 
     '''This method displays the roles assigned to the characters and assign them to variables hero and ai'''
     def displayRoles(self):
-        hero = self._game.getHero()
-        ai = self._game.getAi()
-        self.typingEffect(f"\nYou have chosen {hero.getColorName()}, {hero.getTitle()}\033[0m")
-        self.typingEffect(f"The character assigned to AI is {ai.getColorName()}, {ai.getTitle()}\033[0m Prepare for battle!\n")
+        #assign hero and ai to hero and ai field variable
+        self._hero = self._game.getHero()
+        self._ai = self._game.getAi()
+        
+        self.typingEffect(f"\nYou have chosen {self._hero.getColorName()}, {self._hero.getTitle()}\033[0m")
+        self.typingEffect(f"The character assigned to AI is {self._ai.getColorName()}, {self._ai.getTitle()}\033[0m Prepare for battle!\n")
 
     '''This method introduces the storyteller and first challenge'''
     def orianaAndChallenge1Intro(self):
         self.typingEffect(f"\n{self._oriana}Greetings, hero. I am Oriana, chronicler of Aralon.")
-        self.typingEffect("Prepare yourself for the first challenge: \033[35mKragnar the Stoneborn\033[0m.")
-        self.typingEffect("A towering beast of immense strength who can summon a shield to block critical attacks.")
-        self.typingEffect("Strike wisely, for strategy and strength will decide this battle.")
+        self.typingEffect("        Prepare yourself for the first challenge: \033[35mKragnar the Stoneborn\033[0m.")
+        self.typingEffect("        A towering beast of immense strength who can summon a shield to block critical attacks.")
+        self.typingEffect("        Strike wisely, for strategy and strength will decide this battle.\n")
+
+    '''This method prints the dialogues before challenge 1'''
+    def challenge1Dialogues(self):
+        self.typingEffect("\033[35mKragnar: \033[0mYou both, daring to challenge me?")
+        self.typingEffect("         You must be brave or foolish to face the Stoneborn.\n")
+
+        # Hero's response
+        self.typingEffect(f"{self._hero.getColorName()}: \033[0mYou may be strong, but every stone can be shattered with enough will!")
+        
+        # AI response
+        self.typingEffect(f"\n\033[94m{self._ai.getColorName()}: \033[0mI'll strike with precision, and you'll fall before me.\n")
+        self.typingEffect("\033[35mKragnar: \033[0mEnough talk! Prepare to meet your end, heroes!\n")
+
 
 
         

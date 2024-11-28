@@ -25,11 +25,8 @@ class Character:
     
     def getName(self):
         return self._name
-    
-    def setHealth(self, health):
-        self._health = health
 
-    '''This module rolls 2 six-sided dice for characters and store their outcome'''
+    '''This method rolls 2 six-sided dice for characters and store their outcome'''
     def rollDice(self):
         self._characterRoll = random.randint(0, 12)
 
@@ -50,4 +47,11 @@ class Character:
             return False
         else: 
             return None
+        
+    '''This method updates the health of the characters after the damage and ensure it never goes into negative'''
+    def updateHealth(self, damage):
+        if self._health - damage < 0:
+            self._health = 0
+        else:
+            self._health = self._health - damage
         
