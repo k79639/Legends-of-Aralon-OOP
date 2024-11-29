@@ -4,4 +4,4 @@ from game import Game #import game
 class Application:
     def run():
         game = Game() #creates game object
-        game.run()  #call run method in game
+        game.run()  #call run method of game

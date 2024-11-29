@@ -89,6 +89,61 @@ class Script:
         # AI response
         self.typingEffect(f"\n\033[94m{self._ai.getColorName()}: \033[0mI'll strike with precision, and you'll fall before me.\n")
         self.typingEffect("\033[35mKragnar: \033[0mEnough talk! Prepare to meet your end, heroes!\n")
+    
+    '''This method introduces challenge 2'''
+    def challenge2Intro(self):
+        self.typingEffect(f"\n{self._oriana}Heroes, your next trial awaits in the dark forests where no light reaches.\n")
+        self.typingEffect("        There lurks \033[35mAzra, the Mirror Fiend\033[0m, a creature of cunning and deception.")
+        self.typingEffect("        \033[31mBeware,\033[0m for Azra can reflect your attacks, turning your strength against you.\n")
+        self.typingEffect("        Work together, heroes. Only strategy and unity will lead to victory.\n")
+
+    '''This method introduces challenge 3'''
+    def challenge3Intro(self):
+        self.typingEffect(f"\n{self._oriana}You have come far, but a greater threat awaits.\n")
+        self.typingEffect("        Beneath the scorched lands lies \033[35mMalakar, the Life Leech\033[0m.")
+        self.typingEffect("        His hunger is endless, draining strength with every strike.\n")
+        self.typingEffect("        \033[31mBeware:\033[0m The more he attacks, the stronger he becomes.\n")
+        self.typingEffect("        Only endurance and resolve can bring you victory.\n")
+
+    '''This method introduces challenge 4'''
+    def challenge4Intro(self):
+        self.typingEffect(f"\n{self._oriana}You have overcome \033[35mMalakar, the Life Leech\033[0m, but the greatest danger lies ahead.\n")
+        self.typingEffect("        Deep within the fiery heart of the mountain awaits \033[35mIgnarok, the Blazing Drake\033[0m.")
+        self.typingEffect("        Its flames burn hotter than the sun and can turn even the bravest to ash.\n")
+        self.typingEffect("        \033[31mBe warned:\033[0m When \033[35mIgnarok\033[0m falls, it will erupt in a fiery explosion, dealing deadly damage.")
+        self.typingEffect("        Stay vigilant, for Ignarok's flames are as unpredictable as they are fierce.\n")
+        self.typingEffect("        Only endurance and resolve will see you through this final trial.\n")
+
+    '''This method introduces challenge 5'''
+    def challenge5Intro(self):
+        self.typingEffect(f"\n{self._oriana}This is it, heroes. The final battle awaits.\n")
+        self.typingEffect("        In the heart of the ancient ruins, \033[35mZarok, the Deathbringer\033[0m awaits.")
+        self.typingEffect("        \033[35mZarok\033[0m wields the power to drain life, leaving only darkness in his wake.\n")
+        self.typingEffect("        \033[31mBeware:\033[0m When \033[35mZarok\033[0m's health drops below 16, his power doubles.\n")
+        self.typingEffect("        Defeat Zarok, and Aralon will be free. Fail, and the light will fade forever.\n")
+
+    '''Zaroks final dialogues when he looses'''
+    def zarokFinalDialogues(self):
+        self.typingEffect(f"\n\033[35mZarok\033[0m: \033[0mImpossible... How could I be defeated by mere mortals?")
+        self.typingEffect("       My power fades... and I am vanquished, hero.")
+        self.typingEffect("       The darkness recedes, but shadows will always remain in the hearts of men.\n")
+        self.typingEffect("       My reign is over. Enjoy your victory, for it is fleeting.")
+
+    '''Oriana's final dialogues'''
+    def orianaFinalDialogues(self):
+        self.typingEffect(f"\n{self._oriana}You did it! Zarok is defeated, and Aralon is saved.")
+        self.typingEffect("        Your bravery has restored light to the kingdom.\n")
+        self.typingEffect("        \033[1mRest now, champions. Your tale will be sung for generations.\033[0m")
+
+    '''Thank you message for the player'''
+    def thankyouMessage(self):
+        self.typingEffect("\n\033[7mThank you for playing Legends of Aralon.\033[7m\n", 0.04)
+
+
+
+
+    
+
 
 
 

@@ -14,5 +14,6 @@ class Hero(Character):
     def getIntelligence(self):
         return self._strength
     
-    def getStrength(self):
-        return self._strength
+    def getStamina(self):
+        return self._stamina
+    

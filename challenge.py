@@ -30,8 +30,50 @@ class Challenge:
             #Dialogues for the first challenge
             self._game.getScript().challenge1Dialogues()
 
-        #Loop round until either one of the character or Monster wins the game
-        # while self._monster.getHealth() > 0 and (self._hero.getHealth() > 0 or self._ai.getHealth() > 0):
+        elif self._game.getChallengeNum() == 2:
+            #get monster for the round
+            self._monster = self._game.getChallenge2Monster()
+            #set strength used for this round
+            heroAttribute = self._hero.getIntelligence()
+            aiAttribute = self._ai.getIntelligence()
+            heroAttributeName = "Intelligence"
+            aiAttributeName = "Intelligence"
+            #Introduce challenge
+            self._game.getScript().challenge2Intro()
+
+        elif self._game.getChallengeNum() == 3:
+            #get monster for the round
+            self._monster = self._game.getChallenge3Monster()
+            #set strength used for this round
+            heroAttribute = self._hero.getStamina()
+            aiAttribute = self._ai.getStamina()
+            heroAttributeName = "Stamina"
+            aiAttributeName = "Stamina"
+            #Introduce challenge
+            self._game.getScript().challenge3Intro()
+
+        elif self._game.getChallengeNum() == 4:
+            #get monster for the round
+            self._monster = self._game.getChallenge4Monster()
+            #set strength used for this round
+            heroAttribute = self._hero.getStamina()
+            aiAttribute = self._ai.getStamina()
+            heroAttributeName = "Stamina"
+            aiAttributeName = "Stamina"
+            #Introduce challenge
+            self._game.getScript().challenge4Intro()
+
+        elif self._game.getChallengeNum() == 5:
+            #get monster for the round
+            self._monster = self._game.getChallenge5Monster()
+            #set strength used for this round
+            heroAttribute = self._hero.getStrength()
+            aiAttribute = self._ai.getIntelligence()
+            heroAttributeName = "Strength"
+            aiAttributeName = "Intelligence"
+            #Introduce challenge
+            self._game.getScript().challenge5Intro()
+
         while not self._game.getRoundWinner():
 
             #Check if both hero can roll for the round

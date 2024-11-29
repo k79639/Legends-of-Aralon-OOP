@@ -36,6 +36,18 @@ class Game:
     
     def getChallenge1Monster(self):
         return self._round1Monster
+    
+    def getChallenge2Monster(self):
+        return self._round2Monster
+    
+    def getChallenge3Monster(self):
+        return self._round3Monster
+    
+    def getChallenge4Monster(self):
+        return self._round4Monster
+    
+    def getChallenge5Monster(self):
+        return self._round5Monster
 
     def getScript(self):
         return self._script
@@ -118,8 +130,10 @@ class Game:
     '''This method determines if someone wins the game'''
     def determineGameWinner(self):
         if not self._round5Monster.characterIsAlive() and (self._heroCharacter.characterIsAlive() > 0 or self._aiCharacter.characterIsAlive()):
+            self._script.zarokFinalDialogues()
+            self._script.orianaFinalDialogues()
+            self._script.thankyouMessage()
             self._gameEnd = True
-            pass
         
         elif not self._aiCharacter.characterIsAlive() and not self._heroCharacter.characterIsAlive():
             self._script.typingEffect(f"\n{self._challenge.getMonster().getColorName()} stands victorious! Both heroes have fallen in battle.\n\033[7mGAME OVER\033[0m\n")
