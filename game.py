@@ -21,7 +21,9 @@ class Game:
         self._round5Monster = None
         self._challengeNum = -1
         self._gameEnd = False
-        self._roundWinnerFound = False
+        self._roundWinner = None
+        self._alertAboutAiDeath = False
+        self._alertAboutHeroDeath = False
 
     def getHero(self):
         return self._heroCharacter
@@ -38,7 +40,9 @@ class Game:
     def getScript(self):
         return self._script
     
-
+    def getRoundWinner(self):
+        return self._roundWinner
+    
     '''This method is the main game method which handel the logic and flow of the game'''
     def run(self):
         #Print a “welcome” message and provide a short overview of the game
@@ -61,6 +65,7 @@ class Game:
 
         #Loop battle until game ends
         while not self._gameEnd:
+            self._roundWinner = False
             self._challenge.battlefield()
 
 
@@ -101,6 +106,34 @@ class Game:
             self._heroCharacter = Hero("Eldara", 50, "the Mystic Sage", "\033[94mEldara", -1, -2, 3)
             self._aiCharacter = Hero("Valerius", 50, "the Guardian Knight", "\033[92mValerius", 2, 2, -3)
         
+    '''This method determines if someone wins a challenge'''
+    def determineRoundWinner(self):
+        if self._challenge.getMonster().characterIsAlive() and (self._heroCharacter.characterIsAlive() > 0 or self._aiCharacter.characterIsAlive()):
+            self._roundWinner = False
 
+        elif not self._challenge.getMonster().characterIsAlive() and (self._heroCharacter.characterIsAlive() > 0 or self._aiCharacter.characterIsAlive()):
+            self._challengeNum += 1
+            self._roundWinner = True           
 
+    '''This method determines if someone wins the game'''
+    def determineGameWinner(self):
+        if not self._round5Monster.characterIsAlive() and (self._heroCharacter.characterIsAlive() > 0 or self._aiCharacter.characterIsAlive()):
+            self._gameEnd = True
+            pass
         
+        elif not self._aiCharacter.characterIsAlive() and not self._heroCharacter.characterIsAlive():
+            self._script.typingEffect(f"\n{self._challenge.getMonster().getColorName()} stands victorious! Both heroes have fallen in battle.\n\033[7mGAME OVER\033[0m\n")
+            self._gameEnd = True 
+
+    '''This method alearts the player if someone dies'''
+    def alertPlayerAboutCharacterDeath(self):
+        if not self._aiCharacter.characterIsAlive() and self._alertAboutAiDeath == False:
+            self._script.typingEffect(f"\n{self._aiCharacter.getColorName()}\033[0m has fallen in battle! Only {self._heroCharacter.getColorName()}\033[0m remains to carry the kingdom's hope.")
+            self._alertAboutAiDeath = True
+        
+        elif not self._heroCharacter.characterIsAlive() and self._alertAboutHeroDeath == False:
+            self._script.typingEffect(f"\n{self._heroCharacter.getColorName()}\033[0m has fallen in battle! Only {self._aiCharacter.getColorName()}\033[0m remains to carry the kingdom's hope.")
+            self._alertAboutHeroDeath = True
+
+            
+

@@ -10,6 +10,9 @@ class Challenge:
         self._hero = None
         self._ai = None
 
+    def getMonster(self):
+        return self._monster
+    
     def battlefield(self):
         self._hero = self._game.getHero()
         self._ai = self._game.getAi()
@@ -28,7 +31,8 @@ class Challenge:
             self._game.getScript().challenge1Dialogues()
 
         #Loop round until either one of the character or Monster wins the game
-        while self._monster.getHealth() > 0 and (self._hero.getHealth() > 0 or self._ai.getHealth() > 0):
+        # while self._monster.getHealth() > 0 and (self._hero.getHealth() > 0 or self._ai.getHealth() > 0):
+        while not self._game.getRoundWinner():
 
             #Check if both hero can roll for the round
             if self._hero.characterIsAlive() == True and self._ai.characterIsAlive() == True:
@@ -92,6 +96,15 @@ class Challenge:
 
             #Now it's monster's turn to attack
             self.monsterAttack()
+
+            #Alert player if someone dies
+            self._game.alertPlayerAboutCharacterDeath()
+
+            #Check if someone won the game
+            self._game.determineGameWinner()
+
+            #Check if someone won the round and start the next round
+            self._game.determineRoundWinner()
 
     def normalAttack(self):
         self.printWhoIsAttackingMonster()

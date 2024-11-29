@@ -38,7 +38,6 @@ class Character:
         # 50% chance for character to give it's decision as True
         if random.randint(0, 1) > 0.5:
             self._characterDecision = True
-
         else:
             self._characterDecision = False
 
