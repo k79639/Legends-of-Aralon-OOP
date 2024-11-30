@@ -160,6 +160,7 @@ class Challenge:
     '''This method runs when critical attack is delt'''
     def criticalAttack(self):
         #TODO: give monster ability to deal with critical attack
+        self.printCriticalAttackMsg()
         pass
 
     '''This method runs when monster attack heroes'''
@@ -211,6 +212,16 @@ class Challenge:
 
         elif self._hero.characterIsAlive():
             self._game.getScript().typingEffect(f"\n{self._hero.getColorName()}\033[0m strike, dealing {self._damageToMonster} damage to {self._monster.getColorName()}\033[0m!")
+
+    def printCriticalAttackMsg(self):
+        if self._hero.characterIsAlive() == True and self._ai.characterIsAlive() == True:
+            self._game.getScript().typingEffect(f"\nTogether, {self._hero.getColorName()}\033[0m and {self._ai.getColorName()}\033[0m rolled critical hit, dealing {self._damageToMonster} damage to {self._monster.getColorName()}\033[0m!")
+
+        elif self._ai.characterIsAlive():
+            self._game.getScript().typingEffect(f"\n{self._ai.getColorName()}\033[0m rolled critical hit, dealing {self._damageToMonster} damage to {self._monster.getColorName()}\033[0m!")
+
+        elif self._hero.characterIsAlive():
+            self._game.getScript().typingEffect(f"\n{self._hero.getColorName()}\033[0m rolled critical hit, dealing {self._damageToMonster} damage to {self._monster.getColorName()}\033[0m!")
 
     def monsterAttackHero(self):
         #print monster's decision

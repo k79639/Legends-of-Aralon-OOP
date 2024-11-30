@@ -22,7 +22,7 @@ class Application:
         #Allow the user to choose one of the two roles implemented in the game
         userChoice = self.selectCharacter()
 
-        #Give user choice to game to create character and start the game
+        #Acknowledge the user choice and pass userchoice to game to create all the characters of the game
         game.createCharacters(userChoice)
 
         game.run()  #call run method of game

@@ -59,9 +59,6 @@ class Game:
     '''This method is the main game method which handel the logic and flow of the game'''
     def run(self):
         
-        #Acknowledge the user choice and create all the characters of the game
-        self.createCharacters()
-
         #Display the character assigned to their role
         self._script.displayRoles()
 

@@ -132,8 +132,8 @@ class Script:
     '''Oriana's final dialogues'''
     def orianaFinalDialogues(self):
         self.typingEffect(f"\n{self._oriana}You did it! Zarok is defeated, and Aralon is saved.")
-        self.typingEffect("        Your bravery has restored light to the kingdom.\n")
-        self.typingEffect("        \033[1mRest now, champions. Your tale will be sung for generations.\033[0m")
+        self.typingEffect("       Your bravery has restored light to the kingdom.\n")
+        self.typingEffect("       \033[1mRest now, champions. Your tale will be sung for generations.\033[0m")
 
     '''Thank you message for the player'''
     def thankyouMessage(self):
