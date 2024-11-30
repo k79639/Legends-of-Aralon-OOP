@@ -10,7 +10,6 @@ class Game:
         self._script = None
         #Create challenges for game and pass game instance to challenge
         self._challenge = Challenge(self)
-        self._userChoice = None
         self._heroCharacter = None
         self._aiCharacter = None
         self._round1Monster = None
@@ -53,9 +52,6 @@ class Game:
     
     def getRoundWinner(self):
         return self._roundWinner
-    
-    def setUserChoice(self, userChoice):
-        self._userChoice = userChoice
 
     def setScript(self, scriptInstance):
         self._script = scriptInstance
@@ -78,7 +74,7 @@ class Game:
             self._challenge.battlefield()
 
     '''This method creates all the charcaters of the game according to the user selection'''
-    def createCharacters(self):
+    def createCharacters(self, userChoice):
         #Create all the monsters in the game for each round
         self._round1Monster = Monster("Kragnar", 50, "Kragnar the Stoneborn!", "\033[35mKragnar")
         self._round2Monster = Monster("Azra", 50, "Azra the Mirror Fiend", "\033[35mAzar")
@@ -87,12 +83,12 @@ class Game:
         self._round5Monster = Monster("Zarok", 70, "Zarok the Deathbringer", "\033[35mZarok")
 
         #Set valerius as Hero and eldara as AI
-        if self._userChoice == "Valerius":
+        if userChoice == "Valerius":
             self._heroCharacter = Hero("Valerius", 50, "the Guardian Knight", "\033[92mValerius", 2, 2, -3)
             self._aiCharacter = Hero("Eldara", 50, "the Mystic Sage", "\033[94mEldara", -1, -2, 3)
 
         #Set eldara as Hero and valerius as AI
-        elif self._userChoice == "Eldara":
+        elif userChoice == "Eldara":
             self._heroCharacter = Hero("Eldara", 50, "the Mystic Sage", "\033[94mEldara", -1, -2, 3)
             self._aiCharacter = Hero("Valerius", 50, "the Guardian Knight", "\033[92mValerius", 2, 2, -3)
         
@@ -128,6 +124,3 @@ class Game:
         elif not self._heroCharacter.characterIsAlive() and self._alertAboutHeroDeath == False and self._alertAboutAiDeath == False:
             self._script.typingEffect(f"\n{self._heroCharacter.getColorName()}\033[0m has fallen in battle! Only {self._aiCharacter.getColorName()}\033[0m remains to carry the kingdom's hope.")
             self._alertAboutHeroDeath = True
-
-            
-

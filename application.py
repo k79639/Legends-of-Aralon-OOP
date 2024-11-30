@@ -23,7 +23,7 @@ class Application:
         userChoice = self.selectCharacter()
 
         #Give user choice to game to create character and start the game
-        game.setUserChoice(userChoice)
+        game.createCharacters(userChoice)
 
         game.run()  #call run method of game
     
