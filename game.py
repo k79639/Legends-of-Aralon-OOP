@@ -7,8 +7,7 @@ from challenge import Challenge
 
 class Game:
     def __init__(self):
-        #Create script for game and pass game instance to script
-        self._script = Script(self)
+        self._script = None
         #Create challenges for game and pass game instance to challenge
         self._challenge = Challenge(self)
         self._userChoice = None
@@ -55,16 +54,14 @@ class Game:
     def getRoundWinner(self):
         return self._roundWinner
     
+    def setUserChoice(self, userChoice):
+        self._userChoice = userChoice
+
+    def setScript(self, scriptInstance):
+        self._script = scriptInstance
+
     '''This method is the main game method which handel the logic and flow of the game'''
     def run(self):
-        #Print a “welcome” message and provide a short overview of the game
-        self._script.displayWelcome()
-
-        #Prints the characters options to choose from
-        self._script.displayOptions()
-
-        #Allow the user to choose one of the two roles implemented in the game
-        self._userChoice = self.selectCharacter()
         
         #Acknowledge the user choice and create all the characters of the game
         self.createCharacters()
@@ -80,33 +77,14 @@ class Game:
             self._roundWinner = False
             self._challenge.battlefield()
 
-
-    '''This method allow user to select one of the two characters implemented in the game'''
-    def selectCharacter(self):
-        validChoice = False
-        while not validChoice: #Loop until user gives valid choice
-            global selectedHero
-            #strip the space from front and back of the user input (if added) and convert it into lowercase
-            selectedHero = input("\nYour choice (\033[92mValerius\033[0m/\033[94mEldara\033[0m): ").strip().lower() 
-            if selectedHero == "valerius":
-                validChoice = True
-                return "Valerius"
-
-            elif selectedHero == "eldara":
-                validChoice = True
-                return "Eldara"
-
-            else:
-                print("\n\033[91mInvalid choice.\033[0m Please type \033[92m'Valerius'\033[0m or \033[94m'Eldara'\033[0m.")
-
     '''This method creates all the charcaters of the game according to the user selection'''
     def createCharacters(self):
         #Create all the monsters in the game for each round
-        self._round1Monster = Monster("Kragnar", 25, "Kragnar the Stoneborn!", "\033[35mKragnar")
-        self._round2Monster = Monster("Azra", 25, "Azra the Mirror Fiend", "\033[35mAzar")
-        self._round3Monster = Monster("Malakar", 30, "Malakar the Life Leech", "\033[35mMalakar")
-        self._round4Monster = Monster("Ignarok", 30, "Ignarok the Blazing Drake", "\033[35mIgnarok")
-        self._round5Monster = Monster("Zarok", 35, "Zarok the Deathbringer", "\033[35mZarok")
+        self._round1Monster = Monster("Kragnar", 50, "Kragnar the Stoneborn!", "\033[35mKragnar")
+        self._round2Monster = Monster("Azra", 50, "Azra the Mirror Fiend", "\033[35mAzar")
+        self._round3Monster = Monster("Malakar", 60, "Malakar the Life Leech", "\033[35mMalakar")
+        self._round4Monster = Monster("Ignarok", 60, "Ignarok the Blazing Drake", "\033[35mIgnarok")
+        self._round5Monster = Monster("Zarok", 70, "Zarok the Deathbringer", "\033[35mZarok")
 
         #Set valerius as Hero and eldara as AI
         if self._userChoice == "Valerius":
@@ -133,19 +111,21 @@ class Game:
             self._script.zarokFinalDialogues()
             self._script.orianaFinalDialogues()
             self._script.thankyouMessage()
+            self._roundWinner = True
             self._gameEnd = True
         
         elif not self._aiCharacter.characterIsAlive() and not self._heroCharacter.characterIsAlive():
-            self._script.typingEffect(f"\n{self._challenge.getMonster().getColorName()} stands victorious! Both heroes have fallen in battle.\n\033[7mGAME OVER\033[0m\n")
+            self._script.typingEffect(f"\n{self._challenge.getMonster().getColorName()}\033[0m stands victorious! Both heroes have fallen in battle.\t\n\n\033[7mGAME OVER\033[0m\n") 
+            self._roundWinner = True
             self._gameEnd = True 
 
     '''This method alearts the player if someone dies'''
     def alertPlayerAboutCharacterDeath(self):
-        if not self._aiCharacter.characterIsAlive() and self._alertAboutAiDeath == False:
+        if not self._aiCharacter.characterIsAlive() and self._alertAboutAiDeath == False and self._alertAboutHeroDeath == False:
             self._script.typingEffect(f"\n{self._aiCharacter.getColorName()}\033[0m has fallen in battle! Only {self._heroCharacter.getColorName()}\033[0m remains to carry the kingdom's hope.")
             self._alertAboutAiDeath = True
         
-        elif not self._heroCharacter.characterIsAlive() and self._alertAboutHeroDeath == False:
+        elif not self._heroCharacter.characterIsAlive() and self._alertAboutHeroDeath == False and self._alertAboutAiDeath == False:
             self._script.typingEffect(f"\n{self._heroCharacter.getColorName()}\033[0m has fallen in battle! Only {self._aiCharacter.getColorName()}\033[0m remains to carry the kingdom's hope.")
             self._alertAboutHeroDeath = True
 

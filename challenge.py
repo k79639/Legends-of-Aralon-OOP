@@ -12,7 +12,8 @@ class Challenge:
 
     def getMonster(self):
         return self._monster
-    
+
+    '''This is the main method which handels the flow of each challenge'''   
     def battlefield(self):
         self._hero = self._game.getHero()
         self._ai = self._game.getAi()
@@ -142,12 +143,13 @@ class Challenge:
             #Alert player if someone dies
             self._game.alertPlayerAboutCharacterDeath()
 
-            #Check if someone won the game
-            self._game.determineGameWinner()
-
             #Check if someone won the round and start the next round
             self._game.determineRoundWinner()
 
+            #Check if someone won the game
+            self._game.determineGameWinner()
+
+    '''This method runs when critical attack is not delt'''
     def normalAttack(self):
         self.printWhoIsAttackingMonster()
 
@@ -155,10 +157,12 @@ class Challenge:
         self._monster.updateHealth(self._damageToMonster)
         self._game.getScript().typingEffect(f"\n{self._monster.getColorName()}'s\033[0m remaining health: {self._monster.getHealth()}.")
 
+    '''This method runs when critical attack is delt'''
     def criticalAttack(self):
         #TODO: give monster ability to deal with critical attack
         pass
 
+    '''This method runs when monster attack heroes'''
     def monsterAttack(self):
         #Get monster's Roll
         self._monster.rollDice()
