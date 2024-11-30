@@ -86,8 +86,8 @@ class Game:
 
         #Set eldara as Hero and valerius as AI
         elif userChoice == "Eldara":
-            self._heroCharacter = Party("Eldara", 50, "the Mystic Sage", "\033[94mEldara", -1, -2, 3)
-            self._aiCharacter = Party("Valerius", 50, "the Guardian Knight", "\033[92mValerius", 2, 2, -3)
+            self._heroCharacter = Party("Eldara", 40, "the Mystic Sage", "\033[94mEldara", -1, -2, 3)
+            self._aiCharacter = Party("Valerius", 40, "the Guardian Knight", "\033[92mValerius", 2, 2, -3)
         
     '''This method determines if someone wins a challenge'''
     def determineRoundWinner(self):
