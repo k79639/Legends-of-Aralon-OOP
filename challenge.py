@@ -96,8 +96,8 @@ class Challenge:
                 totalAiRoll = max(0, totalAiRoll)
 
                 #Display user what each character rolled and how outcome is affected by their attribute
-                print(f"\n{self._hero.getColorName()} \033[0mrolled {self._hero.getRoll()} modified by {self._hero.getName()} {heroAttributeName} ({heroAttribute}) is {totalHeroRoll}")
-                print(f"\n{self._ai.getColorName()} \033[0mrolled {self._ai.getRoll()} modified by {self._ai.getName()} {aiAttributeName} ({aiAttribute}) is {totalAiRoll}")
+                self._game.getScript().typingEffect(f"\n{self._hero.getColorName()} \033[0mrolled {self._hero.getRoll()} modified by {self._hero.getName()} {heroAttributeName} ({heroAttribute}) is {totalHeroRoll}")
+                self._game.getScript().typingEffect(f"\n{self._ai.getColorName()} \033[0mrolled {self._ai.getRoll()} modified by {self._ai.getName()} {aiAttributeName} ({aiAttribute}) is {totalAiRoll}")
 
                 #Calclate the total damage from both heroes
                 self._damageToMonster = totalHeroRoll + totalAiRoll
@@ -111,14 +111,14 @@ class Challenge:
                 totalAiRoll = max(0, totalAiRoll)
 
                 #Display user what Ai rolled and how outcome is affected by it's attribute
-                print(f"\n{self._ai.getColorName()} \033[0mrolled {self._ai.getRoll()} modified by {self._ai.getName()} {aiAttributeName} ({aiAttribute}) is {totalAiRoll}")
+                self._game.getScript().typingEffect(f"\n{self._ai.getColorName()} \033[0mrolled {self._ai.getRoll()} modified by {self._ai.getName()} {aiAttributeName} ({aiAttribute}) is {totalAiRoll}")
                 
                 #Damage given by hero
                 self._damageToMonster = totalAiRoll
 
             elif self._hero.characterIsAlive() == True:
                 #Ask user to roll for the hero
-                input("\n\033[4mPress Enter/Return to roll dices:\033[0m ")
+                self._game.getScript().typingEffect("\n\033[4mPress Enter/Return to roll dices:\033[0m ")
                 self._hero.rollDice()
                 #Calculate the total roll of the hero 
                 totalHeroRoll = self._hero.getRoll() + heroAttribute
@@ -126,16 +126,16 @@ class Challenge:
                 totalHeroRoll = max(0, totalHeroRoll)
 
                 #Display user what hero rolled and how outcome is affected by it's attribute
-                print(f"\n{self._hero.getColorName()} \033[0mrolled {self._hero.getRoll()} modified by {self._hero.getName()} {heroAttributeName} ({heroAttribute}) is {totalHeroRoll}")
+                self._game.getScript().typingEffect(f"\n{self._hero.getColorName()} \033[0mrolled {self._hero.getRoll()} modified by {self._hero.getName()} {heroAttributeName} ({heroAttribute}) is {totalHeroRoll}")
                 
                 #Damage given by hero
                 self._damageToMonster = totalHeroRoll
 
             #Call appropriate method according to the damage to the monster
-            if self._damageToMonster <= 16:
-                self.normalAttack()
-            elif self._damageToMonster > 16:
+            if self._damageToMonster > 15 or self._monster.getHealth() < 20:
                 self.criticalAttack()
+            elif self._damageToMonster <= 15:
+                self.normalAttack()
 
             #Now it's monster's turn to attack
             self.monsterAttack()
@@ -152,16 +152,32 @@ class Challenge:
     '''This method runs when critical attack is not delt'''
     def normalAttack(self):
         self.printWhoIsAttackingMonster()
+        self.damageToMonster()
 
-        #Update monster health after damage
-        self._monster.updateHealth(self._damageToMonster)
-        self._game.getScript().typingEffect(f"\n{self._monster.getColorName()}'s\033[0m remaining health: {self._monster.getHealth()}.")
-
-    '''This method runs when critical attack is delt'''
+    '''This method runs when critical attack is delt and give monsted chance to use his shield if he decides or his health is below 20'''
     def criticalAttack(self):
-        #TODO: give monster ability to deal with critical attack
         self.printCriticalAttackMsg()
-        pass
+
+        #Mmonster decides wheather to use abiliy or not
+        monsterDecision = self._monster.characterDecision()
+
+        if monsterDecision or self._monster.getHealth() < 20:
+            monsterHaveShield = self._monster.criticalAtkDefence()
+            if monsterHaveShield == True:
+                if self._hero.characterIsAlive():
+                    heroDestroyShield = self._hero.destroyShield()
+                    self._game.getScript().typingEffect(f"\n{self._monster.getColorName()}\033[0m have {self._monster.getTotalShieldsLeft()} shields left.")
+                    if heroDestroyShield == True:
+                        self.damageToMonster()
+                        self._game.getScript().typingEffect(f"\n{self._hero.getColorName()}\033[0m have {self._hero.getTotalShieldsLeft()} shield breaks left.")
+                    else:
+                        self._game.getScript().typingEffect(f"\n{self._monster.getColorName()}\033[0m shield absorbs your attack!")   
+                else:
+                    self._game.getScript().typingEffect(f"\n{self._monster.getColorName()}\033[0m shield absorbs your attack!")   
+            else:
+                self.damageToMonster()    
+        else:
+            self.damageToMonster()
 
     '''This method runs when monster attack heroes'''
     def monsterAttack(self):
@@ -171,9 +187,12 @@ class Challenge:
         
         #Ensure total roll does not goes into negative
         monsterRoll = max(0, monsterRoll)
+
+        #Check if monster is alive 
+        monsterIsAlive = self._monster.characterIsAlive() == True
         
-        #If monster rolled more than heroes roll divided by 2 he gets the chance to attack players
-        if monsterRoll > (self._hero.getRoll()/2 + self._ai.getRoll()/2) and self._monster.characterIsAlive() == True:
+        #If monster rolled more than heroes roll divided by 2 he gets the chance to attack players or his health is less than 15
+        if (monsterRoll > (self._hero.getRoll()/2 + self._ai.getRoll()/2) and monsterIsAlive) or self._monster.getHealth() < 15 and monsterIsAlive:
             #monster decides wheather to attack hero or not
             self._monster.characterDecision()
             attackHero = self._monster.getCharacterDecision()
@@ -247,4 +266,9 @@ class Challenge:
         #update ai health and print it
         self._ai.updateHealth(self._damageToAi)
         self._game.getScript().typingEffect(f"\n{self._ai.getColorName()}'s\033[0m remaining health: {self._ai.getHealth()}.")
+
+    def damageToMonster(self):
+        #Update monster health after damage
+        self._monster.updateHealth(self._damageToMonster)
+        self._game.getScript().typingEffect(f"\n{self._monster.getColorName()}'s\033[0m remaining health: {self._monster.getHealth()}.")
 

@@ -1,6 +1,6 @@
 '''This module handels the game logic'''
 #import all the necessary modules for game
-from hero import Hero 
+from party import Party 
 from monster import Monster
 from script import Script
 from challenge import Challenge
@@ -73,21 +73,21 @@ class Game:
     '''This method creates all the charcaters of the game according to the user selection'''
     def createCharacters(self, userChoice):
         #Create all the monsters in the game for each round
-        self._round1Monster = Monster("Kragnar", 50, "Kragnar the Stoneborn!", "\033[35mKragnar")
-        self._round2Monster = Monster("Azra", 50, "Azra the Mirror Fiend", "\033[35mAzar")
-        self._round3Monster = Monster("Malakar", 60, "Malakar the Life Leech", "\033[35mMalakar")
-        self._round4Monster = Monster("Ignarok", 60, "Ignarok the Blazing Drake", "\033[35mIgnarok")
-        self._round5Monster = Monster("Zarok", 70, "Zarok the Deathbringer", "\033[35mZarok")
+        self._round1Monster = Monster("Kragnar", 50, "Kragnar the Stoneborn!", "\033[35mKragnar", 1)
+        self._round2Monster = Monster("Azra", 50, "Azra the Mirror Fiend", "\033[35mAzar", 1)
+        self._round3Monster = Monster("Malakar", 60, "Malakar the Life Leech", "\033[35mMalakar", 1)
+        self._round4Monster = Monster("Ignarok", 60, "Ignarok the Blazing Drake", "\033[35mIgnarok", 2)
+        self._round5Monster = Monster("Zarok", 70, "Zarok the Deathbringer", "\033[35mZarok", 2)
 
         #Set valerius as Hero and eldara as AI
         if userChoice == "Valerius":
-            self._heroCharacter = Hero("Valerius", 50, "the Guardian Knight", "\033[92mValerius", 2, 2, -3)
-            self._aiCharacter = Hero("Eldara", 50, "the Mystic Sage", "\033[94mEldara", -1, -2, 3)
+            self._heroCharacter = Party("Valerius", 40, "the Guardian Knight", "\033[92mValerius", 2, 2, -3)
+            self._aiCharacter = Party("Eldara", 40, "the Mystic Sage", "\033[94mEldara", -1, -2, 3)
 
         #Set eldara as Hero and valerius as AI
         elif userChoice == "Eldara":
-            self._heroCharacter = Hero("Eldara", 50, "the Mystic Sage", "\033[94mEldara", -1, -2, 3)
-            self._aiCharacter = Hero("Valerius", 50, "the Guardian Knight", "\033[92mValerius", 2, 2, -3)
+            self._heroCharacter = Party("Eldara", 50, "the Mystic Sage", "\033[94mEldara", -1, -2, 3)
+            self._aiCharacter = Party("Valerius", 50, "the Guardian Knight", "\033[92mValerius", 2, 2, -3)
         
     '''This method determines if someone wins a challenge'''
     def determineRoundWinner(self):
