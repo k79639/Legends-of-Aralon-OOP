@@ -4,7 +4,6 @@ from character import Character
 class Monster(Character):
     def __init__(self, name, health, title, coloredName, shields):
         Character.__init__(self, name, health, title, coloredName)
-        # self._monsterHaveShield = False
         self._monsterTotalShields = shields
 
     def getTotalShieldsLeft(self):

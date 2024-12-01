@@ -79,28 +79,30 @@ class Challenge:
 
             #Check if both hero can roll for the round
             if self._hero.characterIsAlive() == True and self._ai.characterIsAlive() == True:
+                try:
+                    #Ask user to roll for the hero
+                    input("\n\033[4mPress Enter/Return to roll dices:\033[0m ")
+                    self._hero.rollDice()
+                    #Calculate the total roll of the hero 
+                    totalHeroRoll = self._hero.getRoll() + heroAttribute
+                    #Ensure total roll does not goes into negative
+                    totalHeroRoll = max(0, totalHeroRoll)
 
-                #Ask user to roll for the hero
-                input("\n\033[4mPress Enter/Return to roll dices:\033[0m ")
-                self._hero.rollDice()
-                #Calculate the total roll of the hero 
-                totalHeroRoll = self._hero.getRoll() + heroAttribute
-                #Ensure total roll does not goes into negative
-                totalHeroRoll = max(0, totalHeroRoll)
+                    #AI rolls on its turn.
+                    self._ai.rollDice()
+                    #Calculate the total roll of the Ai 
+                    totalAiRoll = self._ai.getRoll() + aiAttribute
+                    #Ensure total roll does not goes into negative
+                    totalAiRoll = max(0, totalAiRoll)
 
-                #AI rolls on its turn.
-                self._ai.rollDice()
-                #Calculate the total roll of the Ai 
-                totalAiRoll = self._ai.getRoll() + aiAttribute
-                #Ensure total roll does not goes into negative
-                totalAiRoll = max(0, totalAiRoll)
+                    #Display user what each character rolled and how outcome is affected by their attribute
+                    self._game.getScript().typingEffect(f"\n{self._hero.getColorName()} \033[0mrolled {self._hero.getRoll()} modified by {self._hero.getName()} {heroAttributeName} ({heroAttribute}) is {totalHeroRoll}")
+                    self._game.getScript().typingEffect(f"\n{self._ai.getColorName()} \033[0mrolled {self._ai.getRoll()} modified by {self._ai.getName()} {aiAttributeName} ({aiAttribute}) is {totalAiRoll}")
 
-                #Display user what each character rolled and how outcome is affected by their attribute
-                self._game.getScript().typingEffect(f"\n{self._hero.getColorName()} \033[0mrolled {self._hero.getRoll()} modified by {self._hero.getName()} {heroAttributeName} ({heroAttribute}) is {totalHeroRoll}")
-                self._game.getScript().typingEffect(f"\n{self._ai.getColorName()} \033[0mrolled {self._ai.getRoll()} modified by {self._ai.getName()} {aiAttributeName} ({aiAttribute}) is {totalAiRoll}")
-
-                #Calclate the total damage from both heroes
-                self._damageToMonster = totalHeroRoll + totalAiRoll
+                    #Calclate the total damage from both heroes
+                    self._damageToMonster = totalHeroRoll + totalAiRoll
+                except KeyboardInterrupt:
+                    raise
 
             elif self._ai.characterIsAlive() == True:
                 #AI rolls on its turn.
