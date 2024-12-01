@@ -1,5 +1,4 @@
 '''This module handels the hero's of the game and their logic and inherits from character base class'''
-import sys
 from character import Character
 
 class Party(Character):
