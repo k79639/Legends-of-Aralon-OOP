@@ -14,10 +14,10 @@ class Application:
         game.setScript(script)
 
         #Print a “welcome” message and provide a short overview of the game
-        # script.displayWelcome()
+        script.displayWelcome()
 
         #Prints the characters options to choose from
-        # script.displayOptions()
+        script.displayOptions()
 
         
         #Allow the user to choose one of the two roles implemented in the game and handel errors
