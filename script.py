@@ -54,9 +54,9 @@ class Script:
 
         #Display characters attributes
         self.typingEffect("\n\033[92mValerius, the Guardian Knight,\033[0m")
-        self.typingEffect("- Stamina: +2\n- Strength: +2\n- wisdom: -3\n- Health: 50")
+        self.typingEffect("- Stamina: +2\n- Strength: +2\n- wisdom: -3\n- Health: 40")
         self.typingEffect("\n\033[94mEldara, the Mystic Sage:\033[0m")
-        self.typingEffect("- Stamina: -1\n- Strength: -2\n- Intelligence: +3\n- Health: 50")
+        self.typingEffect("- Stamina: -1\n- Strength: -2\n- Intelligence: +3\n- Health: 40")
         self.typingEffect("\nType \033[92m'Valerius'\033[0m to embody strength and resilience,")
         self.typingEffect("or \033[94m'Eldara'\033[0m to wield the power of wisdom and magic.")
 

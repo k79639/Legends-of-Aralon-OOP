@@ -49,11 +49,11 @@ class Application:
             try:
                 #strip the space from front and back of the user input (if added) and convert it into lowercase
                 selectedHero = input("\nYour choice (\033[92mValerius\033[0m/\033[94mEldara\033[0m): ").strip().lower() 
-                if selectedHero == "valerius":
+                if selectedHero == "valerius" or selectedHero == "v":
                     breakLoop = True
                     return "Valerius"
 
-                elif selectedHero == "eldara":
+                elif selectedHero == "eldara" or selectedHero == "e":
                     breakLoop = True
                     return "Eldara"
                 else:

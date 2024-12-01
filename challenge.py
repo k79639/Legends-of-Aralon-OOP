@@ -120,7 +120,7 @@ class Challenge:
 
             elif self._hero.characterIsAlive() == True:
                 #Ask user to roll for the hero
-                self._game.getScript().typingEffect("\n\033[4mPress Enter/Return to roll dices:\033[0m ")
+                input("\n\033[4mPress Enter/Return to roll dices:\033[0m ")
                 self._hero.rollDice()
                 #Calculate the total roll of the hero 
                 totalHeroRoll = self._hero.getRoll() + heroAttribute
